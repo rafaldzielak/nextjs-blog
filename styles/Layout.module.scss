@@ -1,4 +1,36 @@
 .container {
-  max-width: 1500px;
+  max-width: 1200px;
   margin: auto;
+}
+
+.nav {
+  font-family: "Condensed";
+  background: #333;
+  color: #eee;
+}
+
+.navContent {
+  a {
+    display: flex;
+  }
+  letter-spacing: 1px;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 50px;
+  align-content: center;
+  a {
+    margin-top: 0.75rem;
+    margin-left: 1rem;
+  }
+
+  h2 {
+    margin: 0.5rem;
+  }
+  h3 {
+    margin: 0.85rem;
+    margin-right: 1.5rem;
+  }
 }

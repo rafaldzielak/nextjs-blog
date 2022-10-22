@@ -20,7 +20,14 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: #222;
+    color: #333;
+    background: #bbb;
   }
+}
+
+@font-face {
+  font-family: "Condensed";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Condensed"), url("../public/condensed.ttf") format("truetype");
 }
