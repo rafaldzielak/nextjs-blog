@@ -11,7 +11,7 @@ const PostGrid = () => {
         author="RD"
       />
       <PostCard
-        title="Darmowe przeglądy w ponad 1300 stacjach. Mamy listę"
+        title="Darmowe przeglądy w ponad 1300 stacjach."
         img="https://d-art.ppstatic.pl/kadry/k/r/1/bc/ef/624b343f861a1_o_original.jpg"
         author="RD"
       />

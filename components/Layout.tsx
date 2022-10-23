@@ -2,8 +2,15 @@ import React, { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Layout.module.scss";
+import { getAuth } from "firebase/auth";
+import { firebaseApp } from "../firebase/clientApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+  const auth = getAuth(firebaseApp);
+  const [user, loading, error] = useAuthState(auth);
+  console.log(user, loading, error);
+
   return (
     <main>
       <nav className={styles.nav}>
@@ -14,7 +21,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
               <h2>RD Car Blog</h2>
             </a>
           </Link>
-          <h3>Log in</h3>
+          {user ? <h3>Hi {user.displayName}</h3> : <h3>Log in</h3>}
         </div>
       </nav>
       <div className={styles.container}>{children}</div>
