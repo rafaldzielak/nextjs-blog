@@ -1,6 +1,4 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+import { initializeApp } from "firebase/app";
 
 const clientCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,8 +9,12 @@ const clientCredentials = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(clientCredentials);
-}
+console.log("INITIALIZE APP");
 
-export default firebase;
+const firebaseApp = initializeApp(clientCredentials);
+
+export { firebaseApp };
+
+export const initFirebase = () => {
+  return firebaseApp;
+};
