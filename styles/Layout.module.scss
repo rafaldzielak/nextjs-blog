@@ -4,8 +4,7 @@
 }
 
 .nav {
-  font-family: "Condensed";
-  background: #333;
+  background: var(--chakra-colors-gray-900);
   color: #eee;
   margin-bottom: 1rem;
 }
@@ -13,15 +12,14 @@
 .navContent {
   a {
     display: flex;
+    align-items: center;
   }
-  letter-spacing: 1px;
   max-width: 1200px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-height: 50px;
-  align-content: center;
   a {
     margin-top: 0.75rem;
     margin-left: 1rem;
