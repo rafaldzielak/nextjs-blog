@@ -1,0 +1,22 @@
+.postCard {
+  position: relative;
+  height: 450px;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+
+  // -webkit-box-shadow: inset 0 4px 20px -2px gray;
+  // -moz-box-shadow: inset 0 4px 2px -2px gray;
+  box-shadow: inset 0px -120px 60px -60px #111;
+
+  .cardImage {
+    border-radius: 10px;
+    z-index: -1;
+  }
+
+  .cardTitle {
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+}
