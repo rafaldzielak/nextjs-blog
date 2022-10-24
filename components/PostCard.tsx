@@ -1,3 +1,4 @@
+import { Flex, Heading } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { FC } from "react";
 import styles from "../styles/PostCard.module.scss";
@@ -10,7 +11,14 @@ type PostProps = {
 
 const PostCard: FC<PostProps> = ({ title, img, author }) => {
   return (
-    <div className={styles.postCard}>
+    <Flex
+      className={styles.postCard}
+      alignItems="flex-end"
+      padding="4"
+      height="450px"
+      position="relative"
+      boxShadow="inset 0px -120px 60px -60px #111;"
+    >
       <Image
         className={styles.cardImage}
         src={img}
@@ -18,8 +26,10 @@ const PostCard: FC<PostProps> = ({ title, img, author }) => {
         alt="car"
         objectFit="cover"
       />
-      <h2 className={styles.cardTitle}>{title}</h2>
-    </div>
+      <Heading as="h4" fontSize={"2xl"} fontWeight="400" mb="2">
+        {title}
+      </Heading>
+    </Flex>
   );
 };
 
