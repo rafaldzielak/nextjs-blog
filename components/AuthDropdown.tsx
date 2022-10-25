@@ -1,5 +1,5 @@
 import React from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { firebaseApp } from "../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
@@ -14,7 +14,10 @@ import {
 const AuthDropdown = () => {
   const auth = getAuth(firebaseApp);
   const [user, loading, error] = useAuthState(auth);
+  const provider = new GoogleAuthProvider();
   console.log(user, loading, error);
+
+  const signIn = async () => await signInWithPopup(auth, provider);
 
   return (
     <Menu>
@@ -31,7 +34,7 @@ const AuthDropdown = () => {
             <MenuItem onClick={() => auth.signOut()}>Log out</MenuItem>
           </>
         ) : (
-          <MenuItem>Sign In</MenuItem>
+          <MenuItem onClick={signIn}>Sign In</MenuItem>
         )}
       </MenuList>
     </Menu>
