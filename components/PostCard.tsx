@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { FC } from "react";
 import styles from "../styles/PostCard.module.scss";
 
-type PostProps = {
+export type PostProps = {
   title: string;
   author: string;
   img: string;
