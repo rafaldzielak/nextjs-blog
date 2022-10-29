@@ -19,13 +19,7 @@ const PostCard: FC<PostProps> = ({ title, img, author }) => {
       position="relative"
       boxShadow="inset 0px -120px 60px -60px #111;"
     >
-      <Image
-        className={styles.cardImage}
-        src={img}
-        layout="fill"
-        alt="car"
-        objectFit="cover"
-      />
+      <Image className={styles.cardImage} src={img} layout="fill" alt="car" objectFit="cover" />
       <Heading as="h4" fontSize={"2xl"} fontWeight="400" mb="2">
         {title}
       </Heading>
