@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const clientCredentials = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,7 +14,9 @@ console.log("INITIALIZE APP");
 
 const firebaseApp = initializeApp(clientCredentials);
 
-export { firebaseApp };
+const firestoreDb = getFirestore(firebaseApp);
+
+export { firebaseApp, firestoreDb };
 
 export const initFirebase = () => {
   return firebaseApp;
