@@ -2,14 +2,7 @@ import React from "react";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { firebaseApp } from "../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Button,
-  Heading,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Button, Heading } from "@chakra-ui/react";
 
 const AuthDropdown = () => {
   const auth = getAuth(firebaseApp);

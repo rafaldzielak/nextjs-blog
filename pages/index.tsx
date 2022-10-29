@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { PostProps } from "../components/PostCard";
@@ -21,7 +21,8 @@ const Home: NextPage<{ posts: PostProps[] }> = ({ posts }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const querySnapshot = await getDocs(collection(firestoreDb, "posts"));
+  const q = query(collection(firestoreDb, "posts"), orderBy("timestamp", "desc"));
+  const querySnapshot = await getDocs(q);
 
   const posts = querySnapshot.docs.map((doc) => doc.data());
   return {

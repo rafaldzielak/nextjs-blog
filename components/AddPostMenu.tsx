@@ -19,34 +19,22 @@ const AddPostMenu: FC<AddPostMenuProps> = ({ editor }) => {
       <Flex>
         <Button
           m="0.5rem"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 1 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 1 }) ? "is-active" : ""
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          className={editor.isActive("heading", { level: 1 }) ? "is-active" : ""}
         >
           h1
         </Button>
         <Button
           m="0.5rem"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 2 }) ? "is-active" : ""
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          className={editor.isActive("heading", { level: 2 }) ? "is-active" : ""}
         >
           h2
         </Button>
         <Button
           m="0.5rem"
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-          }
-          className={
-            editor.isActive("heading", { level: 3 }) ? "is-active" : ""
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          className={editor.isActive("heading", { level: 3 }) ? "is-active" : ""}
         >
           h3
         </Button>
@@ -90,10 +78,7 @@ const AddPostMenu: FC<AddPostMenuProps> = ({ editor }) => {
       </Flex>
 
       <Flex>
-        <Button
-          m="0.5rem"
-          onClick={() => editor.chain().focus().clearNodes().run()}
-        >
+        <Button m="0.5rem" onClick={() => editor.chain().focus().clearNodes().run()}>
           clear nodes
         </Button>
         <Button
@@ -124,32 +109,18 @@ const AddPostMenu: FC<AddPostMenuProps> = ({ editor }) => {
         >
           code block
         </Button>
-        <Button
-          m="0.5rem"
-          onClick={() => editor.chain().focus().setHorizontalRule().run()}
-        >
+        <Button m="0.5rem" onClick={() => editor.chain().focus().setHorizontalRule().run()}>
           horizontal rule
         </Button>
-        <Button
-          m="0.5rem"
-          onClick={() => editor.chain().focus().setHardBreak().run()}
-        >
+        <Button m="0.5rem" onClick={() => editor.chain().focus().setHardBreak().run()}>
           hard break
         </Button>
       </Flex>
       <Flex>
-        <Button
-          m="0.5rem"
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().chain().focus().undo().run()}
-        >
+        <Button m="0.5rem" onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().chain().focus().undo().run()}>
           undo
         </Button>
-        <Button
-          m="0.5rem"
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().chain().focus().redo().run()}
-        >
+        <Button m="0.5rem" onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().chain().focus().redo().run()}>
           redo
         </Button>
       </Flex>
