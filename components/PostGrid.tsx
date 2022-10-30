@@ -1,9 +1,10 @@
 import { Grid } from "@chakra-ui/react";
 import React, { FC } from "react";
-import PostCard, { PostProps } from "./PostCard";
+import PostCard from "./PostCard";
+import { Post } from "../types/Post";
 
 type PostGridProps = {
-  posts: PostProps[];
+  posts: Post[];
 };
 
 const PostGrid: FC<PostGridProps> = ({ posts }) => {
