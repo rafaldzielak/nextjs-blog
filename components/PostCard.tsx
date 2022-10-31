@@ -2,14 +2,9 @@ import { Flex, Heading } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { FC } from "react";
 import styles from "../styles/PostCard.module.scss";
+import { Post } from "../types/Post";
 
-export type PostProps = {
-  title: string;
-  author: string;
-  img: string;
-};
-
-const PostCard: FC<PostProps> = ({ title, img, author }) => {
+const PostCard: FC<Post> = ({ title, img, author }) => {
   return (
     <Flex
       className={styles.postCard}

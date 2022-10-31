@@ -1,12 +1,12 @@
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { PostProps } from "../components/PostCard";
 import PostGrid from "../components/PostGrid";
 import { firestoreDb } from "../firebase/clientApp";
 import styles from "../styles/Home.module.scss";
+import { Post } from "../types/Post";
 
-const Home: NextPage<{ posts: PostProps[] }> = ({ posts }) => {
+const Home: NextPage<{ posts: Post[] }> = ({ posts }) => {
   console.log(posts);
   return (
     <div className={styles.container}>
