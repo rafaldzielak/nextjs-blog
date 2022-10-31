@@ -27,14 +27,17 @@ const theme = extendTheme({
         fontSize: "16px",
       },
       h1: {
+        marginTop: ".5rem",
         fontSize: "2.5rem",
         marginBottom: "1.5rem",
       },
       h2: {
+        marginTop: ".5rem",
         fontSize: "1.75rem",
         marginBottom: "1.25rem",
       },
       h3: {
+        marginTop: ".5rem",
         fontSize: "1.5rem",
         fontWeight: "bold",
         marginBottom: "1rem",
