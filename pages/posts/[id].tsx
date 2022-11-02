@@ -3,7 +3,7 @@ import TiptapImage from "@tiptap/extension-image";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import React, { FC } from "react";
 import { firestoreDb } from "../../firebase/clientApp";
@@ -27,15 +27,22 @@ const SinglePost: FC<Post> = (post) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+type Params = { id: string };
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  const q = query(collection(firestoreDb, "posts"));
+  const querySnapshot = await getDocs(q);
+
+  const paths = querySnapshot.docs.map((doc) => ({ params: { id: doc.data().timestamp.toString() } }));
+  return { paths, fallback: "blocking" };
+};
+
+export const getStaticProps: GetStaticProps<Post, Params> = async (context) => {
   console.log(context.params?.id);
   const q = query(collection(firestoreDb, "posts"), where("timestamp", "==", Number(context.params?.id)));
   const querySnapshot = await getDocs(q);
-  const post = querySnapshot.docs?.[0].data();
-  if (!post) return { notFound: true };
-  return {
-    props: post,
-  };
+  const post = querySnapshot.docs?.[0].data() as Post;
+  return { props: post };
 };
 
 export default SinglePost;
