@@ -8,7 +8,13 @@ const LoginModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const provider = new GoogleAuthProvider();
 
-  const signInWithGoogle = async () => await signInWithPopup(auth, provider);
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
