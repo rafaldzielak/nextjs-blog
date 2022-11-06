@@ -8,7 +8,13 @@ const LoginModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const provider = new GoogleAuthProvider();
 
-  const signInWithGoogle = async () => await signInWithPopup(auth, provider);
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -22,7 +28,14 @@ const LoginModal = () => {
           <ModalCloseButton />
           <ModalHeader>Sign In</ModalHeader>
           <ModalBody>
-            <Image style={{ margin: "auto" }} src="/google-sign-in.png" alt="sign-in" width={191} height={46} onClick={signInWithGoogle} />
+            <Image
+              style={{ cursor: "pointer" }}
+              src="/google-sign-in.png"
+              alt="sign-in"
+              width={191}
+              height={46}
+              onClick={signInWithGoogle}
+            />
             <ModalHeader pl="0">Or sign in with email</ModalHeader>
             <LoginInputsForm />
           </ModalBody>
