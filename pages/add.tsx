@@ -7,6 +7,8 @@ import AddPostMenu from "../components/AddPostMenu";
 import { collection, addDoc } from "firebase/firestore";
 import { firestoreDb } from "../firebase/clientApp";
 import { useRouter } from "next/router";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Add = () => {
   const [title, setTitle] = useState("");
@@ -14,6 +16,9 @@ const Add = () => {
   const [error, setError] = useState("");
 
   const router = useRouter();
+
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
 
   const editor = useEditor({
     extensions: [StarterKit, Image],
@@ -37,7 +42,7 @@ const Add = () => {
     console.log(editor?.getText());
     console.log(editor?.getJSON());
     await addDoc(collection(firestoreDb, "posts"), {
-      author: "RD",
+      author: user?.email,
       description: editor?.getHTML(),
       img,
       title,
