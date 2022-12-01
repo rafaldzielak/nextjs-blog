@@ -4,7 +4,7 @@ import Image from "@tiptap/extension-image";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useState } from "react";
 import AddPostMenu from "../components/AddPostMenu";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, orderBy, where, getDocs } from "firebase/firestore";
 import { firestoreDb } from "../firebase/clientApp";
 import { useRouter } from "next/router";
 import { getAuth } from "firebase/auth";

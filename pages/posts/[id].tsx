@@ -1,13 +1,11 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text } from "@chakra-ui/react";
 import TiptapImage from "@tiptap/extension-image";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { getAuth, updateProfile } from "firebase/auth";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import React, { FC } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { firestoreDb } from "../../firebase/clientApp";
 import { Post } from "../../types/Post";
 
