@@ -4,10 +4,13 @@ import { firebaseApp } from "../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Menu, MenuButton, MenuList, MenuItem, Button, Heading } from "@chakra-ui/react";
 import LoginModal from "./LoginModal/LoginModal";
+import { useRouter } from "next/router";
 
 const AuthDropdown = () => {
   const auth = getAuth(firebaseApp);
   const [user, loading, error] = useAuthState(auth);
+
+  const router = useRouter();
 
   console.log(user, loading, error);
 
@@ -21,8 +24,8 @@ const AuthDropdown = () => {
         </Heading>
       </MenuButton>
       <MenuList border={"none"}>
-        <MenuItem>My Posts</MenuItem>
-        <MenuItem>My Favourites</MenuItem>
+        <MenuItem onClick={() => router.push("/posts/my")}>My Posts</MenuItem>
+        <MenuItem onClick={() => router.push("/posts/favourites")}>My Favourites</MenuItem>
         <MenuItem onClick={() => auth.signOut()}>Log out</MenuItem>
       </MenuList>
     </Menu>
