@@ -1,40 +1,73 @@
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import TiptapImage from "@tiptap/extension-image";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { collection, doc, DocumentData, getDocs, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
-import React, { FC } from "react";
+import { useRouter } from "next/router";
+import { FC, useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { firestoreDb } from "../../firebase/clientApp";
 import { Post } from "../../types/Post";
 
 const SinglePost: FC<Post> = (post) => {
+  const [isFavourite, setisFavourite] = useState(false);
+  const [document, setDocument] = useState<DocumentData | undefined>();
+
   const editor = useEditor({
     extensions: [StarterKit, TiptapImage],
     content: post.description,
     editable: false,
   });
 
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
+
+  const router = useRouter();
+
+  if (user) onSnapshot(doc(firestoreDb, "favourites", user.uid), (doc) => setDocument(doc.data()));
+
+  useEffect(() => {
+    if (!document) return;
+    setisFavourite(document.favourites.some((favourite: Post) => favourite.timestamp.toString() === router.query.id));
+  }, [document, router.query.id]);
+
+  const toggleFavourite = async () => {
+    if (!user || !document) return;
+    if (!isFavourite) await updateDoc(doc(firestoreDb, "favourites", user.uid), { favourites: [...document.favourites, post] });
+    else {
+      await updateDoc(doc(firestoreDb, "favourites", user.uid), {
+        favourites: document.favourites.filter((favourite: Post) => favourite.timestamp.toString() !== router.query.id),
+      });
+    }
+  };
+
   return (
     <Box maxWidth="840px" margin="auto" style={{ textAlign: "justify", textJustify: "inter-word" }}>
       <Heading>{post.title}</Heading>
-      <Box mb=".5rem">
-        <Text as="span" textColor="#ddd">
-          Author:{" "}
-        </Text>
-        <Text as="span" textColor="#aaa">
-          {post.author}
-        </Text>
-      </Box>
-      <Box mb="1rem">
-        <Text as="span" textColor="#ddd">
-          Date:{" "}
-        </Text>
-        <Text as="span" textColor="#aaa">
-          {new Date(post.timestamp).toUTCString()}
-        </Text>
-      </Box>
+      <Flex justifyContent="space-between">
+        <Box>
+          <Box mb=".5rem">
+            <Text as="span" textColor="#ddd">
+              Author:{" "}
+            </Text>
+            <Text as="span" textColor="#aaa">
+              {post.author}
+            </Text>
+          </Box>
+          <Box mb="1rem">
+            <Text as="span" textColor="#ddd">
+              Date:{" "}
+            </Text>
+            <Text as="span" textColor="#aaa">
+              {new Date(post.timestamp).toUTCString()}
+            </Text>
+          </Box>
+        </Box>
+        {user && <Button onClick={toggleFavourite}>{isFavourite ? "Remove from favourites" : "Add to favourites"}</Button>}
+      </Flex>
       <Box position="relative" width="100%" height="400px" mb="1rem">
         <Image src={post.img} layout="fill" alt="car" objectFit="cover" />
       </Box>
