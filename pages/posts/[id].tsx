@@ -10,11 +10,11 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { firestoreDb } from "../../firebase/clientApp";
+import { useFavourtes } from "../../hooks/useFavourites";
 import { Post } from "../../types/Post";
 
 const SinglePost: FC<Post> = (post) => {
-  const [isFavourite, setisFavourite] = useState(false);
-  const [document, setDocument] = useState<DocumentData | undefined>();
+  const { isFavourite, toggleFavourite, setisFavourite, favouriteDocument, user } = useFavourtes(post);
 
   const editor = useEditor({
     extensions: [StarterKit, TiptapImage],
@@ -22,27 +22,12 @@ const SinglePost: FC<Post> = (post) => {
     editable: false,
   });
 
-  const auth = getAuth();
-  const [user] = useAuthState(auth);
-
   const router = useRouter();
 
-  if (user) onSnapshot(doc(firestoreDb, "favourites", user.uid), (doc) => setDocument(doc.data()));
-
   useEffect(() => {
-    if (!document) return;
-    setisFavourite(document.favourites.some((favourite: Post) => favourite.timestamp.toString() === router.query.id));
-  }, [document, router.query.id]);
-
-  const toggleFavourite = async () => {
-    if (!user || !document) return;
-    if (!isFavourite) await updateDoc(doc(firestoreDb, "favourites", user.uid), { favourites: [...document.favourites, post] });
-    else {
-      await updateDoc(doc(firestoreDb, "favourites", user.uid), {
-        favourites: document.favourites.filter((favourite: Post) => favourite.timestamp.toString() !== router.query.id),
-      });
-    }
-  };
+    if (!favouriteDocument) return;
+    setisFavourite(favouriteDocument.favourites.some((favourite: Post) => favourite.timestamp.toString() === router.query.id));
+  }, [favouriteDocument, router.query.id, setisFavourite]);
 
   return (
     <Box maxWidth="840px" margin="auto" style={{ textAlign: "justify", textJustify: "inter-word" }}>
