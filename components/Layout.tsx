@@ -1,7 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import styles from "../styles/Layout.module.scss";
-import { ChakraProvider, extendTheme, type ThemeConfig } from "@chakra-ui/react";
+import { Box, ChakraProvider, extendTheme, Flex, Grid, type ThemeConfig } from "@chakra-ui/react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const config: ThemeConfig = {
   initialColorMode: "dark",
@@ -53,10 +54,13 @@ const theme = extendTheme({
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <ChakraProvider theme={theme}>
-      <main>
+      <Flex minH="100vh" flexDir="column">
         <Navbar />
-        <div className={styles.container}>{children}</div>
-      </main>
+        <Box flex="1" className={styles.container}>
+          {children}
+        </Box>
+        <Footer />
+      </Flex>
     </ChakraProvider>
   );
 };
